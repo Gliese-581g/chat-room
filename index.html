@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- <link rel="stylesheet" href="css/skeleton.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--    <script src="chatting.js"></script>-->
+</head>
+<body>
+<div class="main" id="main">
+    <!--        {{value}}-->
+    <div class="fieldset">
+        <p>聊天室</p>
+        <!--内容填写表单区域-->
+        <p class="username">
+            <label for="username">请输入用户名：</label>
+            <input type="text" name="username" id="username" v-model="username">
+        </p>
+        <!--=头像选择-->
+        <p class="head">
+            <span>请选择你的头像：</span>
+            <face-radio v-for="radio in radios" :key="radio.value" :radio="radio" v-model="src">
+            </face-radio>
+        </p>
+        <label>
+            <textarea name="area" class="area" cols="55" rows="4" maxlength="140" placeholder="请输入内容。"
+                      v-model="text"></textarea>
+        </label>
+        <p class="number">
+            <span>还能输入<span class="count">{{170-text.length}}</span>个字</span>
+            <button class="btn" @click="submit">广播</button>
+        </p>
+    </div>
+    <!--聊天内容区域 -->
+    <div class="chat">
+        <p><span>大家在说</span></p>
+        <!-- 用户聊天内容-->
+            <transition-group name="" tag="ul" class="content">
+            <chat-page class="content-page" v-for="(user, index) in users" :user="user" :key="index"
+                       @remove="move(index)"></chat-page>
+            </transition-group>
+    </div>
+</div>
+<script src="vue_chatting.js"></script>
+</body>
+</html>
